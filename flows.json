@@ -1,0 +1,443 @@
+[
+    {
+        "id": "2036cb84affdb22b",
+        "type": "tab",
+        "label": "Flujo 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2fabf4fd6c33c229",
+        "type": "function",
+        "z": "2036cb84affdb22b",
+        "name": "function 1",
+        "func": "let Capacidad = msg.payload;\nlet tzoffset =(new Date()).getTimezoneOffset()*60000;\nlet Fecha = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);\nmsg.topic =\"INSERT INTO garaje VALUEs('\"+Fecha+\"','\"+Capacidad+\"')\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 540,
+        "wires": [
+            [
+                "609152309ba7bff3"
+            ]
+        ]
+    },
+    {
+        "id": "609152309ba7bff3",
+        "type": "mysql",
+        "z": "2036cb84affdb22b",
+        "mydb": "6002e647d6ef261f",
+        "name": "Data",
+        "x": 650,
+        "y": 540,
+        "wires": [
+            [
+                "be6cafe198c21386"
+            ]
+        ]
+    },
+    {
+        "id": "be6cafe198c21386",
+        "type": "debug",
+        "z": "2036cb84affdb22b",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "faa270dec50cdce9",
+        "type": "s7 in",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "mode": "single",
+        "variable": "Contador_Coches",
+        "diff": true,
+        "name": "",
+        "x": 210,
+        "y": 540,
+        "wires": [
+            [
+                "2fabf4fd6c33c229"
+            ]
+        ]
+    },
+    {
+        "id": "914a7fa9016a52e5",
+        "type": "s7 in",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "mode": "single",
+        "variable": "Semaforo_Rojo",
+        "diff": true,
+        "name": "",
+        "x": 200,
+        "y": 100,
+        "wires": [
+            [
+                "4d1a4fcea299056d"
+            ]
+        ]
+    },
+    {
+        "id": "e5ef877ec0668c6e",
+        "type": "s7 in",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "mode": "single",
+        "variable": "Semaforo_Amarillo",
+        "diff": true,
+        "name": "",
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "4f8006abc14cd471"
+            ]
+        ]
+    },
+    {
+        "id": "7184d61b78503e33",
+        "type": "s7 in",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "mode": "single",
+        "variable": "Semaforo_Verde",
+        "diff": true,
+        "name": "",
+        "x": 200,
+        "y": 220,
+        "wires": [
+            [
+                "05d9cada19b9fbc1"
+            ]
+        ]
+    },
+    {
+        "id": "4d1a4fcea299056d",
+        "type": "ui_led",
+        "z": "2036cb84affdb22b",
+        "order": 0,
+        "group": "3d0446791b914528",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "right",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 530,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f3eb0ad3ce012cde",
+        "type": "ui_button",
+        "z": "2036cb84affdb22b",
+        "name": "",
+        "group": "eb133c62709d86bf",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Suma",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 910,
+        "y": 120,
+        "wires": [
+            [
+                "3c8215ad75790d6d"
+            ]
+        ]
+    },
+    {
+        "id": "7ecb2e6e5c16aa1a",
+        "type": "ui_button",
+        "z": "2036cb84affdb22b",
+        "name": "",
+        "group": "eb133c62709d86bf",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Menos",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 910,
+        "y": 180,
+        "wires": [
+            [
+                "2318176cf3eb3b94"
+            ]
+        ]
+    },
+    {
+        "id": "3c8215ad75790d6d",
+        "type": "s7 out",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "variable": "+",
+        "name": "Suma",
+        "x": 1150,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2318176cf3eb3b94",
+        "type": "s7 out",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "variable": "-",
+        "name": "Menos",
+        "x": 1150,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4f8006abc14cd471",
+        "type": "ui_led",
+        "z": "2036cb84affdb22b",
+        "order": 0,
+        "group": "3d0446791b914528",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "right",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ffa500",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "05d9cada19b9fbc1",
+        "type": "ui_led",
+        "z": "2036cb84affdb22b",
+        "order": 0,
+        "group": "3d0446791b914528",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "right",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 530,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "72262944f0b40a53",
+        "type": "function",
+        "z": "2036cb84affdb22b",
+        "name": "function 2",
+        "func": "// Obtén el número del payload\nlet numero = msg.payload;\n\n// Asegúrate de que el payload es un número válido\nif (typeof numero !== 'number' || isNaN(numero)) {\n    node.error(\"El payload no es un número válido.\");\n    return null;\n}\n\n// Realiza la operación 100 - número\nlet resultado = 100 - numero;\n\n// Devuelve el resultado\nmsg.payload = resultado;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "763790f9844ef392"
+            ]
+        ]
+    },
+    {
+        "id": "56cf15cd8e08f3b8",
+        "type": "s7 in",
+        "z": "2036cb84affdb22b",
+        "endpoint": "c03fcd117538a520",
+        "mode": "single",
+        "variable": "Contador_Coches",
+        "diff": true,
+        "name": "",
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "72262944f0b40a53"
+            ]
+        ]
+    },
+    {
+        "id": "763790f9844ef392",
+        "type": "ui_text",
+        "z": "2036cb84affdb22b",
+        "group": "320848429c7a4f00",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Plazas restantes",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 640,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "6002e647d6ef261f",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "pruebas_db",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "c03fcd117538a520",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.0.1",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": "2",
+        "cycletime": "1000",
+        "timeout": "2000",
+        "name": "PLC_Fase4",
+        "vartable": [
+            {
+                "addr": "M100.0",
+                "name": "+"
+            },
+            {
+                "addr": "M100.1",
+                "name": "-"
+            },
+            {
+                "addr": "MW100",
+                "name": "Contador_Coches"
+            },
+            {
+                "addr": "Q0.1",
+                "name": "Semaforo_Rojo"
+            },
+            {
+                "addr": "Q0.3",
+                "name": "Semaforo_Amarillo"
+            },
+            {
+                "addr": "Q0.6",
+                "name": "Semaforo_Verde"
+            },
+            {
+                "addr": "",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "id": "3d0446791b914528",
+        "type": "ui_group",
+        "name": "Semaforo",
+        "tab": "08720df789c67e9f",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "eb133c62709d86bf",
+        "type": "ui_group",
+        "name": "Botones",
+        "tab": "08720df789c67e9f",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "320848429c7a4f00",
+        "type": "ui_group",
+        "name": "Plazas ocupadas",
+        "tab": "08720df789c67e9f",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "08720df789c67e9f",
+        "type": "ui_tab",
+        "name": "dashboard_Fase4",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
